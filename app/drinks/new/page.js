@@ -14,22 +14,17 @@ export default function NewDrink() {
       drink_name.charAt(0).toUpperCase() + drink_name.slice(1).toLowerCase();
 
     try {
-      const { data, error } = await supabase
-        .from("drinks")
-        .insert([
-          {
-            drink_name,
-            drink_price,
-          },
-        ])
-        .select();
+      const { data, error } = await supabase.from("drinks").insert([
+        {
+          drink_name,
+          drink_price,
+        },
+      ]);
 
       if (error) {
         console.error("Error inserting drink:", error.message);
         alert("Failed to add drink: " + error.message);
       } else {
-        console.log("Drink added:", data);
-        alert("Drink added successfully!");
         router.push("/drinks");
       }
     } catch (err) {
